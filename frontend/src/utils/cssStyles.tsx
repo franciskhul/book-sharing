@@ -1,4 +1,5 @@
 import { alpha } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -12,17 +13,19 @@ import { alpha } from '@mui/material/styles';
 // }
 
 // ----------------------------------------------------------------------
+interface bgBlurProps {
+    color: string;
+    blur: number;
+    opacity: number,
+}
 
 // theme
-export default function cssStyles() {
+export default function cssStyles(theme?: Theme) {
     return {
-        bgBlur: () => {
-            const color = "#000000";
-            const blur = 6;
-            const opacity = 0.8
-            // const color = props?.color || theme?.palette.background.default || '#000000';
-            // const blur = props?.blur || 6;
-            // const opacity = props?.opacity || 0.8;
+        bgBlur: (props?: bgBlurProps) => {
+            const color = props?.color || theme?.palette.background.default || '#000000';
+            const blur = props?.blur || 6;
+            const opacity = props?.opacity || 0.8;
 
             return {
                 backdropFilter: `blur(${blur}px)`,

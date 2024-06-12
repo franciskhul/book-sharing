@@ -1,5 +1,5 @@
 // @mui
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, IconButtonProps } from '@mui/material';
 import { ReactNode, forwardRef, Ref } from 'react';
 import { m } from 'framer-motion';
 
@@ -44,7 +44,7 @@ function AnimateWrap({ size, children }: AnimateWrapProps) {
 
 type Size = 'small' | 'medium' | 'large'
 
-interface IconButtonAnimateProps {
+interface IconButtonAnimateProps extends IconButtonProps {
     children?: ReactNode;
     size?: Size;
 }

@@ -1,11 +1,11 @@
 // @mui
 import { styled } from '@mui/material/styles';
 import { AppBar, AppBarProps, Toolbar, Grid } from '@mui/material';
-import cssStyles from '../../utils/cssStyles';
-import useResponsive from '../../hooks/useResponsive';
-import Logo from '../../components/Logo';
-import Iconify from '../../components/Iconify';
-import IconButtonAnimate from '../../components/animate/IconButtonAnimate';
+import cssStyles from '../../../utils/cssStyles';
+import useResponsive from '../../../hooks/useResponsive';
+import Logo from '../../../components/Logo';
+import Iconify from '../../../components/Iconify';
+import IconButtonAnimate from '../../../components/animate/IconButtonAnimate';
 
 const HEADER = {
     MOBILE_HEIGHT: 64,
@@ -26,7 +26,7 @@ export const NAVBAR = {
 
 interface DashboardHeaderProps {
     isCollapse: boolean;
-    isOffset: boolean;
+    isOffset?: boolean;
     verticalLayout?: boolean;
     onOpenSidebar: VoidFunction
 }

@@ -5,9 +5,9 @@ import { Box } from '@mui/material';
 
 interface IconifyProps {
     icon: string,
-    sx: object
+    sx?: object
 }
 
-export default function Iconify({ icon, sx, ...other }: IconifyProps) {
+export default function Iconify({ icon, sx = {}, ...other }: IconifyProps) {
     return <Box component={Icon} icon={icon} sx={{ ...sx }} {...other} />;
 }

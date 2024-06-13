@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import SvgIconStyle from "../../../components/SvgIconStyle";
 
-const ROOTS_DASHBOARD: string = '/';
+const ROOTS_DASHBOARD: string = '';
 
 const getIcon = (name: string): ReactNode => (
     <SvgIconStyle src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />

@@ -7,7 +7,11 @@ import { Outlet } from 'react-router-dom';
 
 import { useState } from 'react';
 
+import useCollapseDrawer from '../../hooks/useCollapseDrawer';
+
 import DashboardHeader from './header';
+
+import NavbarVertical from './navbar/Navbar';
 
 const HEADER = {
     MOBILE_HEIGHT: 64,
@@ -53,12 +57,9 @@ const MainStyle = styled('main', {
 
 export default function DashboardLayout() {
 
-    // TODO: Add the collapseClick
-    // const { collapseClick, isCollapse } = useCollapseDrawer();
+    const { collapseClick, isCollapse } = useCollapseDrawer();
 
     const [open, setOpen] = useState(false);
-
-    console.log(open);
 
     return (
         <Box
@@ -67,11 +68,11 @@ export default function DashboardLayout() {
                 minHeight: { lg: 1 },
             }}
         >
-            <DashboardHeader isCollapse={true} onOpenSidebar={() => setOpen(true)} />
+            <DashboardHeader isCollapse={isCollapse} onOpenSidebar={() => setOpen(true)} />
 
-            {/* TODO: Add the collapseClick */}
-            {/* TODO: Add the theme properties */}
-            <MainStyle>
+            <NavbarVertical isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+
+            <MainStyle collapseClick={collapseClick}>
                 <Outlet />
             </MainStyle>
         </Box>

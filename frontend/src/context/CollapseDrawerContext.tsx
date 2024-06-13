@@ -26,6 +26,7 @@ const CollapseDrawerContext = createContext(initialState);
 interface CollapseDrawerProviderProps {
     children: ReactNode
 }
+
 function CollapseDrawerProvider({ children }: CollapseDrawerProviderProps) {
     const isDesktop = useResponsive('up', 'lg', 0, 0);
     const [collapse, setCollapse] = useState({

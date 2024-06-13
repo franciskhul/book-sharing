@@ -12,7 +12,7 @@ const Page = forwardRef<HTMLDivElement, PageProps>(
     ({ children, title = '', meta, ...other }, ref: Ref<HTMLDivElement>) => (
         <>
             <Helmet>
-                <title>{`${title} | Senga`}</title>
+                <title>{`${title} | Ello`}</title>
                 {meta}
             </Helmet>
 
@@ -20,6 +20,7 @@ const Page = forwardRef<HTMLDivElement, PageProps>(
                 {children}
             </Box>
         </>
-    ));
+    )
+);
 
 export default Page;

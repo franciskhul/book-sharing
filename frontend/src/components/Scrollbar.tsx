@@ -32,8 +32,8 @@ const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
 }));
 
 interface ScrollbarProps {
-    children: ReactNode,
-    sx: object
+    children?: ReactNode,
+    sx?: object
 }
 
 export default function Scrollbar({ children, sx, ...other }: ScrollbarProps) {

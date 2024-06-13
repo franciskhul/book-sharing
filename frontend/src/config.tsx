@@ -16,3 +16,8 @@ export const HEADER = {
     DASHBOARD_DESKTOP_HEIGHT: 92,
     DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
 };
+
+export const ICON = {
+    NAVBAR_ITEM: 22,
+    NAVBAR_ITEM_HORIZONTAL: 20,
+};

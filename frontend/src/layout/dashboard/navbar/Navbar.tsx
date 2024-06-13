@@ -1,6 +1,6 @@
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Stack, Drawer } from '@mui/material';
+import { Stack, Drawer, Box } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 import cssStyles from '../../../utils/cssStyles';
@@ -9,7 +9,9 @@ import useCollapseDrawer from '../../../hooks/useCollapseDrawer';
 import Scrollbar from '../../../components/Scrollbar';
 import Logo from '../../../components/LogoDashboard'
 import CollapseButton from './CollapseButton';
+import { NavSectionVertical } from '../../../components/nav-section';
 import { NAVBAR } from '../../../config';
+import navConfig from './NavConfig';
 
 const RootStyle = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('lg')]: {
@@ -58,6 +60,10 @@ export default function Navbar({ isOpenSidebar, onCloseSidebar }: NavbarProps) {
                     )}
                 </Stack>
             </Stack>
+
+            <NavSectionVertical navConfig={navConfig} isCollapse={isCollapse} />
+
+            <Box sx={{ flexGrow: 1 }} />
         </Scrollbar>
     )
 

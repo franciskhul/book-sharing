@@ -24,7 +24,7 @@ const responsiveFontSizes = ({ sm, md, lg }: responsiveFontSizesInterface) => {
     };
 }
 
-const FONT_PRIMARY = 'Mulish'; // Google Font
+const FONT_PRIMARY = 'Mulish, Arial, sans-serif'; // Google Font
 
 const typography: ThemeOptions['typography'] = {
     fontFamily: FONT_PRIMARY,

@@ -13,6 +13,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
     const themeOptions = useMemo(() => ({
         palette,
         typography,
+        shape: { borderRadius: 8 },
         spacing: 4,
     }), []);
 

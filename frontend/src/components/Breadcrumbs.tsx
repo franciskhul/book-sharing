@@ -5,7 +5,7 @@ import { Box, Link, Typography, Breadcrumbs as MUIBreadcrumbs } from '@mui/mater
 
 interface BreadcrumbsProps {
     links: Array<LinkType>;
-    activeLast: boolean;
+    activeLast?: boolean;
 }
 
 interface LinkItemProps {
@@ -78,3 +78,4 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ links, activeLast = false, ..
 }
 
 export default Breadcrumbs;
+export type { LinkType, BreadcrumbsProps, LinkItemProps }

@@ -12,7 +12,7 @@ function path(root: string, sublink: string) {
     return `${root}${sublink}`;
 }
 
-const PATH_DASHBOARD = {
+export const PATH_DASHBOARD = {
     books: path(ROOTS_DASHBOARD, '/'),
     uassignedBooks: path(ROOTS_DASHBOARD, '/books/assigned')
 }

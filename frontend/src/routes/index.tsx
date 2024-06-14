@@ -1,6 +1,7 @@
-import { useRoutes, Navigate } from 'react-router-dom'
-import DashboardLayout from '../layout/dashboard'
-
+import { useRoutes, Navigate } from 'react-router-dom';
+import DashboardLayout from '../layout/dashboard';
+import Books from '../pages/Books';
+// TODO: Add Loadable
 
 export default function Router() {
     return useRoutes([
@@ -8,22 +9,8 @@ export default function Router() {
             path: '/',
             element: <DashboardLayout />,
             children: [
-                {
-                    index: true,
-                    element: (
-                        <>
-                            Unassinged Books page
-                        </>
-                    )
-                },
-                {
-                    path: '/books/assigned',
-                    element: (
-                        <>
-                            Assigned Books page
-                        </>
-                    )
-                }
+                { element: <Navigate to={'/books'} />, index: true },
+                { path: 'books', element: <Books /> }
             ]
         },
         { path: '*', element: <Navigate to="/404" replace /> }

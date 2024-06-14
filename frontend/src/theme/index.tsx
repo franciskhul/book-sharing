@@ -4,6 +4,7 @@ import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import typography from './typography';
 import palette from './palette';
+import breakpoints from './breakPoints';
 
 interface ThemeProviderProps {
     children: ReactNode
@@ -15,6 +16,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
         typography,
         shape: { borderRadius: 8 },
         spacing: 4,
+        breakpoints
     }), []);
 
     const theme = createTheme(themeOptions);

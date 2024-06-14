@@ -1,4 +1,5 @@
-
+// graphql
+export const GRAPHQL_URL: string = process.env.graphql_url || 'http://localhost:4000/graphql'
 
 export const NAVBAR = {
     BASE_WIDTH: 260,

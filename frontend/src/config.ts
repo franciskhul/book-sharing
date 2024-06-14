@@ -1,5 +1,6 @@
-// graphql
-export const GRAPHQL_URL: string = process.env.graphql_url || 'http://localhost:4000/graphql'
+// graphql graphql_url
+// VITE_GRAPHQL_URL
+export const GRAPHQL_URL: string = import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:4000/graphql'
 
 export const NAVBAR = {
     BASE_WIDTH: 260,

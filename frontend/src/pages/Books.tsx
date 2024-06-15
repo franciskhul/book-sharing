@@ -19,7 +19,7 @@ const Books: React.FC = () => {
 
     return (
         <Page title="Books">
-            <Container maxWidth={'lg'}>
+            <Container maxWidth={false}>
                 <HeadBreadcrumbs
                     heading='Books'
                     links={[{ name: 'Books', href: PATH_DASHBOARD.books }]}

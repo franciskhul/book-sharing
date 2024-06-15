@@ -11,25 +11,24 @@ const BookCard: React.FC<BookTypes> = ({ title, author, coverPhotoURL, readingLe
     console.log("coverPhotoURL", coverPhotoURL);
     return (
 
-        <Card sx={{ display: 'flex' }}>
+        <Card sx={{ display: 'flex', height: '300px' }}>
 
+            {/* sx={{ flex: '1 0 auto' }} */}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
-                <CardContent
-                    sx={{ flex: '1 0 auto' }}
-                >
-                    <Typography component="div" variant="h5">
+                <CardContent >
+                    <Typography component="div" variant="h6">
                         {title}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
                         {author}
                     </Typography>
                 </CardContent>
-
             </Box>
 
+            {/* sx={{ flex: '1 0 auto' }} */}
             <CardMedia component="img"
-                sx={{ width: 151 }}
+                // sx={{ width: "100%", height: '100%', objectFit: 'cover' }}
                 image={coverPhotoURL}
                 alt={title}
             />

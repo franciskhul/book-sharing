@@ -44,7 +44,7 @@ const BooksTitleSearch: React.FC = () => {
                 <InputStyle
                     {...params}
                     stretchStart={200}
-                    placeholder="Search post..."
+                    placeholder="Search book..."
                     onKeyUp={handleKeyUp}
                     InputProps={{
                         ...params.InputProps,

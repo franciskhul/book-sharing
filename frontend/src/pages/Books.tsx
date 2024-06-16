@@ -1,4 +1,7 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, {
+    useState, useMemo,
+    useCallback, useEffect, ChangeEvent, useDeferredValue
+} from 'react';
 import { useQuery } from '@apollo/client';
 import { useSearchParams } from "react-router-dom";
 
@@ -32,10 +35,16 @@ const Books: React.FC = () => {
     const { loading, /**error,**/ data } = useQuery<{ books: BookTypes[] }>(GET_BOOKS);
     const page = useInfiniteScroll();
     const [searchParams] = useSearchParams();
+    const [titleQuery, setTitleQuery] = useState('');
+    const deferredSearchTerm = useDeferredValue(titleQuery);
 
     const [currentFilterTab, setFilterTab] = useState(() => (
         searchParams.get('tab') || 0
     ));
+
+    const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        setTitleQuery(event.target.value);
+    }, []);
 
 
     const [books, setBooks] = useState(data?.books || []);
@@ -45,8 +54,8 @@ const Books: React.FC = () => {
     }, [data]);
 
     const filteredBooks = useMemo(() => (
-        applySortFilter(books, currentFilterTab)
-    ), [books, currentFilterTab])
+        applyFilter(books, currentFilterTab, deferredSearchTerm)
+    ), [books, currentFilterTab, deferredSearchTerm])
 
     // partially load books
     const slicedBooks: BookTypes[] = useMemo(() => (
@@ -149,7 +158,7 @@ const Books: React.FC = () => {
                 />
 
                 <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-                    <BooksTitleSearch />
+                    <BooksTitleSearch handleChange={handleChange} titleQuery={titleQuery} />
                 </Stack>
 
                 <Tabs
@@ -200,18 +209,32 @@ const Books: React.FC = () => {
 export default Books;
 
 // values - 1 = unassigend, 2 = assigned, 0 = all
-function applySortFilter(books: BookTypes[], currentFilterTab: string | number): BookTypes[] {
+function applyFilter(books: BookTypes[], currentFilterTab: string | number, deferredSearchTerm: string): BookTypes[] {
+    let filteredBooks: BookTypes[] = [...books];
     switch (currentFilterTab.toString()) {
         case '1':
             // unassigned = false or not defined
-            return books.filter((book) => (!book.assigned))
+            filteredBooks = books.filter((book) => (!book.assigned))
+            break;
         case '2':
             // assigned
-            return books.filter((book) => (book.assigned))
+            filteredBooks = books.filter((book) => (book.assigned))
+            break;
         case '0':
             // all
-            return books;
+            filteredBooks = books;
+            break;
         default:
-            return books;
+            filteredBooks = books;
+            break;
     }
+
+    if (deferredSearchTerm.length !== 0) {
+        const queryWords: string[] = deferredSearchTerm.toLowerCase().split(' ');
+        filteredBooks = filteredBooks.filter((book) => {
+            const title: string = book.title.toLowerCase();
+            return queryWords.every(word => title.includes(word));
+        });
+    }
+    return filteredBooks;
 }

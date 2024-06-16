@@ -19,6 +19,7 @@ export interface BookTypes {
     author: string;
     coverPhotoURL: string;
     readingLevel: string;
+    assigned?: boolean;
 }
 
 

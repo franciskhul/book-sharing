@@ -6,9 +6,6 @@ import { BookTypes } from '../../../queries';
 const BookCard: React.FC<BookTypes> = ({ title, author, coverPhotoURL, readingLevel }) => {
     // Book - Title / Author Name /  
     console.log("readingLevel", readingLevel);
-    console.log("title", title);
-    console.log("author", author);
-    console.log("coverPhotoURL", coverPhotoURL);
     return (
 
         <Card sx={{ display: 'flex', height: '300px' }}>

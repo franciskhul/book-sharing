@@ -15,15 +15,21 @@ import { PATH_DASHBOARD } from '../layout/dashboard/navbar/NavConfig';
 import { BooksTitleSearch, BookCard } from '../sections/dashboard/books';
 // @queries
 import { GET_BOOKS, BookTypes } from '../queries';
+// @hooks
+import { useInfiniteScroll } from '../hooks';
 
 const Books: React.FC = () => {
     const { loading, error, data } = useQuery<{ books: BookTypes[] }>(GET_BOOKS);
+    const page = useInfiniteScroll();
 
-    console.log("******loading***********", loading);
+    // console.log("******loading***********", loading);
     console.log("******error*************", error);
-    console.log("******data***************", data);
+    // console.log("******data***************", data);
 
-    const books: BookTypes[] = data?.books || [];
+    // partially load books
+    const books: BookTypes[] = (data?.books || []).slice(0, page * 10);
+
+    console.log("****the sliced books*********", books);
 
     return (
         <Page title="Books">

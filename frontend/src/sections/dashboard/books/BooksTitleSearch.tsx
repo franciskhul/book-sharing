@@ -1,24 +1,34 @@
-import React, { ChangeEvent } from 'react';
-
+import React from 'react';
 // @mui
-import { InputAdornment, TextField } from '@mui/material';
+import { TextField, TextFieldProps, InputAdornment } from '@mui/material';
+import { styled } from '@mui/system';
+
 // components
 import Iconify from '../../../components/Iconify';
 
-interface BooksTitleSearchProps {
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => (void);
+type CustomProps = {
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     titleQuery: string;
 }
 
-const BooksTitleSearch: React.FC<BooksTitleSearchProps> = ({ handleChange, titleQuery }) => {
+type ExpandableTextFieldProps = TextFieldProps & CustomProps
 
+
+const StyledTextField = styled(TextField)(() => ({
+    transition: `width 250ms ease-in-out`,
+    width: '200px',
+    '&:focus-within': {
+        width: '300px',
+    },
+}));
+
+const ExpandableTextField: React.FC<ExpandableTextFieldProps> = ({ handleChange, titleQuery, ...props }) => {
     return (
-        <TextField
+        <StyledTextField {...props}
             fullWidth
-            sx={{ maxWidth: { md: 400 } }}
             value={titleQuery}
             onChange={handleChange}
-            placeholder='Search by title............................'
+            placeholder='Search by title.......'
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
@@ -30,4 +40,4 @@ const BooksTitleSearch: React.FC<BooksTitleSearchProps> = ({ handleChange, title
     )
 }
 
-export default BooksTitleSearch;
+export default ExpandableTextField;

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+import { useSearchParams } from "react-router-dom";
 
 import { LoadingButton } from '@mui/lab';
 // @mui
-import { Container, Box, Stack, Grid } from '@mui/material';
+import { Container, Box, Stack, Grid, Tabs, Tooltip, Tab } from '@mui/material';
 // @components
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 import HeadBreadcrumbs from '../components/HeaderBreadcrumbs';
 import { SkeletonBookItem } from '../components/skeleton';
+import Label from '../components/Label';
 // @config
 import { PATH_DASHBOARD } from '../layout/dashboard/navbar/NavConfig';
 // @sections
@@ -18,18 +20,61 @@ import { GET_BOOKS, BookTypes } from '../queries';
 // @hooks
 import { useInfiniteScroll } from '../hooks';
 
-const Books: React.FC = () => {
-    const { loading, error, data } = useQuery<{ books: BookTypes[] }>(GET_BOOKS);
-    const page = useInfiniteScroll();
+interface TabsInterface {
+    value: string | number;
+    label: string;
+    description: string;
+    color: string;
+    count: number
+}
 
-    // console.log("******loading***********", loading);
-    console.log("******error*************", error);
-    // console.log("******data***************", data);
+const Books: React.FC = () => {
+    const { loading, /**error,**/ data } = useQuery<{ books: BookTypes[] }>(GET_BOOKS);
+    const page = useInfiniteScroll();
+    const [searchParams] = useSearchParams();
 
     // partially load books
-    const books: BookTypes[] = (data?.books || []).slice(0, page * 10);
+    const books: BookTypes[] = useMemo(() => (
+        data?.books || []
+    ), [data]);
 
-    console.log("****the sliced books*********", books);
+    const slicedBooks: BookTypes[] = useMemo(() => (
+        books.slice(0, page * 10)
+    ), [page, books]);
+
+    const [filterTab, setFilterTab] = useState(() => (
+        searchParams.get('tab') || 0
+    ));
+
+    const onFilterTab = (event: React.SyntheticEvent<Element, Event>, tab: string) => {
+        setFilterTab(tab);
+        searchParams.set('tab', tab);
+    }
+
+    // values - 0 = unassigend, 1 = assigned, 2 = all
+    const TABS: TabsInterface[] = [
+        {
+            value: 0,
+            label: 'Unassigned',
+            description: 'Books that have not been assigned to students',
+            color: 'yellowDark',
+            count: 40
+        },
+        {
+            value: 1,
+            label: 'Assigned',
+            description: 'Books that have been assigned to students',
+            color: 'turquoiseDark',
+            count: 30
+        },
+        {
+            value: 2,
+            label: 'All',
+            description: 'All the books',
+            color: 'steelBlue',
+            count: books.length
+        }
+    ]
 
     return (
         <Page title="Books">
@@ -55,9 +100,34 @@ const Books: React.FC = () => {
                     <BooksTitleSearch />
                 </Stack>
 
-                <Grid container spacing={8}>
+                <Tabs
+                    allowScrollButtonsMobile
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    onChange={onFilterTab}
+                    value={filterTab}
+                    sx={{ px: 2, bgcolor: 'background.neutral' }}
+                >
                     {
-                        (loading ? [...Array(10)] : books).map((book, index) => (
+                        TABS.map((tabItem) => (
+                            <Tooltip title={tabItem.description} key={tabItem.value} placement="top">
+                                <Tab
+                                    disableRipple
+                                    key={tabItem.value}
+                                    value={tabItem.value}
+                                    icon={<Label color={tabItem.color} sx={{ marginRight: "5px" }}> {tabItem.count} </Label>}
+                                    label={tabItem.label}
+                                    iconPosition="start"
+                                />
+                            </Tooltip>
+                        ))
+                    }
+                </Tabs>
+
+
+                <Grid container spacing={8} sx={{ marginTop: "2em" }}>
+                    {
+                        (loading ? [...Array(10)] : slicedBooks).map((book, index) => (
                             book ? (
                                 <Grid key={index} item xs={12} sm={6} md={4}>
                                     <BookCard {...book} />

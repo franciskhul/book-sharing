@@ -33,7 +33,7 @@ const Books: React.FC = () => {
     const page = useInfiniteScroll();
     const [searchParams] = useSearchParams();
 
-    const [filterTab, setFilterTab] = useState(() => (
+    const [currentFilterTab, setFilterTab] = useState(() => (
         searchParams.get('tab') || 0
     ));
 
@@ -44,17 +44,32 @@ const Books: React.FC = () => {
         setBooks(data?.books || [])
     }, [data]);
 
+    const filteredBooks = useMemo(() => (
+        applySortFilter(books, currentFilterTab)
+    ), [books, currentFilterTab])
+
     // partially load books
     const slicedBooks: BookTypes[] = useMemo(() => (
-        books.slice(0, page * 10)
-    ), [page, books]);
-
+        filteredBooks.slice(0, page * 10)
+    ), [page, filteredBooks]);
 
 
     const onFilterTab = (_: React.SyntheticEvent<Element, Event>, tab: string) => {
         setFilterTab(tab);
         searchParams.set('tab', tab);
     }
+
+    const booksTotalNumber = useMemo(() => {
+        const totalBooks: number = books.length;
+        const filteredBooksNo: number = filteredBooks.length;
+        const unassignedNo = currentFilterTab.toString() === '0' ? filteredBooksNo : (totalBooks - filteredBooksNo);
+        const assignedNo = currentFilterTab.toString() === '1' ? filteredBooksNo : (totalBooks - filteredBooksNo);
+        return {
+            0: unassignedNo,
+            1: assignedNo,
+            2: totalBooks
+        }
+    }, [filteredBooks, books, currentFilterTab])
 
     // values - 0 = unassigend, 1 = assigned, 2 = all
     const TABS: TabsInterface[] = [
@@ -63,21 +78,21 @@ const Books: React.FC = () => {
             label: 'Unassigned',
             description: 'Books that have not been assigned to students',
             color: 'yellowDark',
-            count: 40
+            count: booksTotalNumber[0]
         },
         {
             value: 1,
             label: 'Assigned',
             description: 'Books that have been assigned to students',
             color: 'turquoiseDark',
-            count: 30
+            count: booksTotalNumber[1]
         },
         {
             value: 2,
             label: 'All',
             description: 'All the books',
             color: 'steelBlue',
-            count: books.length
+            count: booksTotalNumber[2]
         }
     ]
 
@@ -135,7 +150,7 @@ const Books: React.FC = () => {
                     variant="scrollable"
                     scrollButtons="auto"
                     onChange={onFilterTab}
-                    value={filterTab}
+                    value={currentFilterTab}
                     sx={{ px: 2, bgcolor: 'background.neutral' }}
                 >
                     {
@@ -176,3 +191,20 @@ const Books: React.FC = () => {
 }
 
 export default Books;
+
+// values - 0 = unassigend, 1 = assigned, 2 = all
+function applySortFilter(books: BookTypes[], currentFilterTab: string | number): BookTypes[] {
+    switch (currentFilterTab.toString()) {
+        case '0':
+            // unassigned = false or not defined
+            return books.filter((book) => (!book.assigned))
+        case '1':
+            // assigned
+            return books.filter((book) => (book.assigned))
+        case '2':
+            // all
+            return books;
+        default:
+            return books;
+    }
+}

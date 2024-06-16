@@ -46,7 +46,7 @@ const Books: React.FC = () => {
         searchParams.get('tab') || 0
     ));
 
-    const onFilterTab = (event: React.SyntheticEvent<Element, Event>, tab: string) => {
+    const onFilterTab = (_: React.SyntheticEvent<Element, Event>, tab: string) => {
         setFilterTab(tab);
         searchParams.set('tab', tab);
     }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useSearchParams } from "react-router-dom";
 
@@ -33,18 +33,23 @@ const Books: React.FC = () => {
     const page = useInfiniteScroll();
     const [searchParams] = useSearchParams();
 
-    // partially load books
-    const books: BookTypes[] = useMemo(() => (
-        data?.books || []
-    ), [data]);
+    const [filterTab, setFilterTab] = useState(() => (
+        searchParams.get('tab') || 0
+    ));
 
+
+    const [books, setBooks] = useState(data?.books || []);
+
+    useEffect(() => {
+        setBooks(data?.books || [])
+    }, [data]);
+
+    // partially load books
     const slicedBooks: BookTypes[] = useMemo(() => (
         books.slice(0, page * 10)
     ), [page, books]);
 
-    const [filterTab, setFilterTab] = useState(() => (
-        searchParams.get('tab') || 0
-    ));
+
 
     const onFilterTab = (_: React.SyntheticEvent<Element, Event>, tab: string) => {
         setFilterTab(tab);
@@ -76,6 +81,30 @@ const Books: React.FC = () => {
         }
     ]
 
+    const assignBook = useCallback((id: string | number) => {
+        setBooks(books.map((book) => {
+            if (book.id.toString() === id.toString()) {
+                return {
+                    ...book,
+                    assigned: true
+                }
+            }
+            return book;
+        }));
+    }, [books]);
+
+    const unassignBook = useCallback((id: string | number) => {
+        setBooks(books.map((book) => {
+            if (book.id.toString() === id.toString()) {
+                return {
+                    ...book,
+                    assigned: false
+                }
+            }
+            return book;
+        }));
+    }, [books]);
+
     return (
         <Page title="Books">
             <Container maxWidth={false}>
@@ -89,6 +118,7 @@ const Books: React.FC = () => {
                                 onClick={() => {
                                     console.log("******assign books*****");
                                 }}
+                                disabled
                             >
                                 Assign Books
                             </LoadingButton>
@@ -130,7 +160,7 @@ const Books: React.FC = () => {
                         (loading ? [...Array(10)] : slicedBooks).map((book, index) => (
                             book ? (
                                 <Grid key={index} item xs={12} sm={6} md={4}>
-                                    <BookCard {...book} />
+                                    <BookCard {...book} assignBook={assignBook} unassignBook={unassignBook} />
                                 </Grid>
                             ) : (
                                 <SkeletonBookItem key={index} />

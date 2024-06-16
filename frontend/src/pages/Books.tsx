@@ -62,8 +62,15 @@ const Books: React.FC = () => {
     const booksTotalNumber = useMemo(() => {
         const totalBooks: number = books.length;
         const filteredBooksNo: number = filteredBooks.length;
-        const unassignedNo = currentFilterTab.toString() === '0' ? filteredBooksNo : (totalBooks - filteredBooksNo);
-        const assignedNo = currentFilterTab.toString() === '1' ? filteredBooksNo : (totalBooks - filteredBooksNo);
+        let unassignedNo: number;
+        let assignedNo: number;
+        if (currentFilterTab.toString() !== '0') {
+            unassignedNo = currentFilterTab.toString() === '1' ? filteredBooksNo : (totalBooks - filteredBooksNo);
+            assignedNo = currentFilterTab.toString() === '2' ? filteredBooksNo : (totalBooks - filteredBooksNo);
+        } else {
+            assignedNo = books.filter((book) => (book.assigned)).length;
+            unassignedNo = totalBooks - assignedNo;
+        }
         return {
             0: unassignedNo,
             1: assignedNo,
@@ -75,24 +82,24 @@ const Books: React.FC = () => {
     const TABS: TabsInterface[] = [
         {
             value: 0,
-            label: 'Unassigned',
-            description: 'Books that have not been assigned to students',
-            color: 'yellowDark',
-            count: booksTotalNumber[0]
-        },
-        {
-            value: 1,
-            label: 'Assigned',
-            description: 'Books that have been assigned to students',
-            color: 'turquoiseDark',
-            count: booksTotalNumber[1]
-        },
-        {
-            value: 2,
             label: 'All',
             description: 'All the books',
             color: 'steelBlue',
             count: booksTotalNumber[2]
+        },
+        {
+            value: 1,
+            label: 'Unassigned',
+            description: 'Books that have not been assigned to the students reading list',
+            color: 'yellowDark',
+            count: booksTotalNumber[0]
+        },
+        {
+            value: 2,
+            label: 'Assigned',
+            description: 'Books that have been assigned to the students reading list',
+            color: 'turquoiseDark',
+            count: booksTotalNumber[1]
         }
     ]
 
@@ -192,16 +199,16 @@ const Books: React.FC = () => {
 
 export default Books;
 
-// values - 0 = unassigend, 1 = assigned, 2 = all
+// values - 1 = unassigend, 2 = assigned, 0 = all
 function applySortFilter(books: BookTypes[], currentFilterTab: string | number): BookTypes[] {
     switch (currentFilterTab.toString()) {
-        case '0':
+        case '1':
             // unassigned = false or not defined
             return books.filter((book) => (!book.assigned))
-        case '1':
+        case '2':
             // assigned
             return books.filter((book) => (book.assigned))
-        case '2':
+        case '0':
             // all
             return books;
         default:

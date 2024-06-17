@@ -6,7 +6,8 @@ import { LoadingButton } from '@mui/lab';
 import { BookTypes } from '../../../queries';
 // @component
 import Iconify from '../../../components/Iconify';
-
+// @hooks
+import { useResponsive } from '../../../hooks';
 
 
 interface BookCardProps extends BookTypes {
@@ -21,8 +22,8 @@ const BookCard: React.FC<BookCardProps> = ({
     assignBook,
     unassignBook
 }) => {
-    // Book - Title / Author Name /  
 
+    const isNotMobile = !useResponsive('down', 'sm', 0, 0);
     return (
 
         <Card sx={{ display: 'flex', height: '300px' }}>
@@ -42,9 +43,11 @@ const BookCard: React.FC<BookCardProps> = ({
                 <CardActions>
                     <LoadingButton variant="contained"
                         startIcon={
-                            <Iconify
-                                icon={assigned ? 'bi:clipboard-x' : 'fluent:clipboard-checkmark-20-regular'}
-                            />
+                            isNotMobile ? (
+                                <Iconify
+                                    icon={assigned ? 'bi:clipboard-x' : 'fluent:clipboard-checkmark-20-regular'}
+                                />
+                            ) : null
                         }
                         onClick={() => {
                             if (assigned) {

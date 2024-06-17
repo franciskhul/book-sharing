@@ -15,14 +15,13 @@ interface BookCardProps extends BookTypes {
 }
 
 const BookCard: React.FC<BookCardProps> = ({
-    title, author, coverPhotoURL, readingLevel,
+    title, author, coverPhotoURL,
     assigned = false,
     id,
     assignBook,
     unassignBook
 }) => {
     // Book - Title / Author Name /  
-    console.log("readingLevel", readingLevel);
 
     return (
 

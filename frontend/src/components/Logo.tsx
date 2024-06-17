@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 interface LogoProps {
     disabledLink?: boolean;
-    sx: object
+    sx?: object
 }
 
 export default function Logo({ disabledLink = false, sx }: LogoProps) {

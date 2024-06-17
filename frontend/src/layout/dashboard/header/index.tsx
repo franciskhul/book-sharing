@@ -84,7 +84,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse }: Dashboard
 
                         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
                             <IconButtonAnimate>
-                                <Avatar sx={{ bgcolor: "#F76434" }}>
+                                <Avatar sx={{ bgcolor: "#335C6E" }}>
                                     KN
                                 </Avatar>
                             </IconButtonAnimate>

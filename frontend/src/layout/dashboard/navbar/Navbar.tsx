@@ -104,8 +104,7 @@ export default function Navbar({ isOpenSidebar, onCloseSidebar }: NavbarProps) {
                             }),
                             ...(collapseHover && {
                                 ...cssStyles(theme).bgBlur(),
-                                boxShadow: () => 'white' // TODO: Fix the issue of the boxShadow
-                                // boxShadow: (theme) => theme.customShadows.z24,
+                                boxShadow: () => 'white'
                             }),
                         },
                     }}

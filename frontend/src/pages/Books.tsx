@@ -36,9 +36,11 @@ const Books: React.FC = () => {
     const [titleQuery, setTitleQuery] = useState('');
     const deferredSearchTerm = useDeferredValue(titleQuery);
 
-    const [currentFilterTab, setFilterTab] = useState(() => (
-        searchParams.get('tab') || 0
-    ));
+    const [currentFilterTab, setFilterTab] = useState<number>(() => {
+        if (!searchParams.get('tab')) return 0
+
+        return parseInt(searchParams.get('tab') || "0");
+    });
 
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setTitleQuery(event.target.value);
@@ -61,9 +63,12 @@ const Books: React.FC = () => {
     ), [page, filteredBooks]);
 
 
-    const onFilterTab = (_: React.SyntheticEvent<Element, Event>, tab: string) => {
+    const onFilterTab = (_: React.SyntheticEvent<Element, Event>, tab: number) => {
         setFilterTab(tab);
-        searchParams.set('tab', tab);
+        searchParams.set('tab', tab.toString());
+        const newSearch = searchParams.toString();
+        const newUrl = `${window.location.pathname}?${newSearch}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
     }
 
     const booksTotalNumber = useMemo(() => {

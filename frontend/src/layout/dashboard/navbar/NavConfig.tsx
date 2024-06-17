@@ -13,7 +13,7 @@ function path(root: string, sublink: string) {
 }
 
 export const PATH_DASHBOARD = {
-    books: path(ROOTS_DASHBOARD, '/'),
+    books: path(ROOTS_DASHBOARD, '/books'),
     uassignedBooks: path(ROOTS_DASHBOARD, '/books/assigned')
 }
 

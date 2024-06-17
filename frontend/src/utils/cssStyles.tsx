@@ -32,28 +32,6 @@ export default function cssStyles(theme?: Theme) {
                 WebkitBackdropFilter: `blur(${blur}px)`, // Fix on Mobile
                 backgroundColor: alpha(color, opacity),
             };
-        },
-        // bgGradient: (props) => {
-        //     const direction = getDirection(props?.direction);
-        //     const startColor = props?.startColor || `${alpha('#000000', 0)} 0%`;
-        //     const endColor = props?.endColor || '#000000 75%';
-
-        //     return {
-        //         background: `linear-gradient(${direction}, ${startColor}, ${endColor});`,
-        //     };
-        // },
-        // bgImage: (props) => {
-        //     const url = props?.url || '/assets/bg_gradient.jpg';
-        //     const direction = getDirection(props?.direction);
-        //     const startColor = props?.startColor || alpha(theme?.palette.grey[900] || '#000000', 0.88);
-        //     const endColor = props?.endColor || alpha(theme?.palette.grey[900] || '#000000', 0.88);
-
-        //     return {
-        //         background: `linear-gradient(${direction}, ${startColor}, ${endColor}), url(${url})`,
-        //         backgroundSize: 'cover',
-        //         backgroundRepeat: 'no-repeat',
-        //         backgroundPosition: 'center center',
-        //     };
-        // },
+        }
     };
 }

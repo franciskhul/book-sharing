@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { useSearchParams } from "react-router-dom";
 
 // @mui
-import { Container, Stack, Grid, Tabs, Tooltip, Tab } from '@mui/material';
+import { Container, Grid, Tabs, Tooltip, Tab } from '@mui/material';
 // @components
 import Page from '../components/Page';
 import HeadBreadcrumbs from '../components/HeaderBreadcrumbs';
@@ -145,11 +145,8 @@ const Books: React.FC = () => {
                 <HeadBreadcrumbs
                     heading='Books'
                     links={[{ name: 'Books', href: PATH_DASHBOARD.books }]}
+                    action={<BooksTitleSearch handleChange={handleChange} titleQuery={titleQuery} />}
                 />
-
-                <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-                    <BooksTitleSearch handleChange={handleChange} titleQuery={titleQuery} />
-                </Stack>
 
                 <Tabs
                     allowScrollButtonsMobile

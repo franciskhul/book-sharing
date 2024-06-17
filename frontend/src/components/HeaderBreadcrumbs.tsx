@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 // @mui
 import { Box, Typography, Link, BoxProps } from '@mui/material';
 // @component
@@ -6,12 +6,13 @@ import Breadcrumbs, { LinkType } from './Breadcrumbs';
 
 interface HeadBreadcrumbs extends BoxProps {
     links: Array<LinkType>;
+    action: ReactNode;
     heading: string;
     moreLink?: string | Array<string>;
     sx?: object
 }
 
-const HeadBreadcrumbs: React.FC<HeadBreadcrumbs> = ({ links, heading, moreLink = "" || [], sx, ...other }) => {
+const HeadBreadcrumbs: React.FC<HeadBreadcrumbs> = ({ links, action, heading, moreLink = "" || [], sx, ...other }) => {
     return (
         <Box sx={{ mb: 5, ...sx }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
@@ -21,6 +22,7 @@ const HeadBreadcrumbs: React.FC<HeadBreadcrumbs> = ({ links, heading, moreLink =
                     </Typography>
                     <Breadcrumbs links={links} {...other} />
                 </Box>
+                <Box sx={{ flexShrink: 0 }}>{action}</Box>
             </Box>
             <Box sx={{ mt: 2 }}>
                 {typeof moreLink === 'string' ? (

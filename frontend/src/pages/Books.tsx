@@ -5,12 +5,10 @@ import React, {
 import { useQuery } from '@apollo/client';
 import { useSearchParams } from "react-router-dom";
 
-import { LoadingButton } from '@mui/lab';
 // @mui
-import { Container, Box, Stack, Grid, Tabs, Tooltip, Tab } from '@mui/material';
+import { Container, Stack, Grid, Tabs, Tooltip, Tab } from '@mui/material';
 // @components
 import Page from '../components/Page';
-import Iconify from '../components/Iconify';
 import HeadBreadcrumbs from '../components/HeaderBreadcrumbs';
 import { SkeletonBookItem } from '../components/skeleton';
 import Label from '../components/Label';
@@ -142,19 +140,6 @@ const Books: React.FC = () => {
                 <HeadBreadcrumbs
                     heading='Books'
                     links={[{ name: 'Books', href: PATH_DASHBOARD.books }]}
-                    action={
-                        <Box>
-                            <LoadingButton variant="contained"
-                                startIcon={<Iconify icon={'mdi:truck-fast-outline'} />}
-                                onClick={() => {
-                                    console.log("******assign books*****");
-                                }}
-                                disabled
-                            >
-                                Assign Books
-                            </LoadingButton>
-                        </Box>
-                    }
                 />
 
                 <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">

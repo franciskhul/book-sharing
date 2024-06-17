@@ -8,7 +8,7 @@ interface LogoProps {
 
 export default function Logo({ disabledLink = false, sx }: LogoProps) {
 
-    const logoPath = `/logo/logo_full.png`;
+    const logoPath = `/logoFull.svg`;
     const logo = <Box component="img" src={logoPath} sx={{ width: 120, height: 60, cursor: 'pointer', ...sx }} />
     return disabledLink ? logo : <RouterLink to="/">{logo}</RouterLink>;
 }

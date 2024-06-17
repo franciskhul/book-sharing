@@ -1,7 +1,16 @@
+import { Suspense, lazy, ComponentType } from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import DashboardLayout from '../layout/dashboard';
-import Books from '../pages/Books';
-// TODO: Add Loadable
+import LoadingScreen from '../components/LoadingScreen';
+
+const Loadable = <P extends object>(Component: ComponentType<P>): React.FC<P> => (props: P) => {
+
+    return (
+        <Suspense fallback={<LoadingScreen />}>
+            <Component {...props} />
+        </Suspense>
+    );
+};
 
 export default function Router() {
     return useRoutes([
@@ -16,3 +25,5 @@ export default function Router() {
         { path: '*', element: <Navigate to="/404" replace /> }
     ])
 }
+
+const Books = Loadable(lazy(() => import('../pages/Books')));

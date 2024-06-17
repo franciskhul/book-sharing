@@ -15,3 +15,6 @@ npm run dev
 ```
 
 4. The application will run on port **5173**
+
+
+node version v18.6.0

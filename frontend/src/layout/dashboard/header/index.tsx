@@ -1,6 +1,6 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { AppBar, AppBarProps, Toolbar, Grid } from '@mui/material';
+import { AppBar, AppBarProps, Toolbar, Grid, Box, Stack, Avatar } from '@mui/material';
 import cssStyles from '../../../utils/cssStyles';
 import useResponsive from '../../../hooks/useResponsive';
 import Logo from '../../../components/Logo';
@@ -90,6 +90,16 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse, verticalLay
                                 <Iconify icon="eva:menu-2-fill" />
                             </IconButtonAnimate>
                         )}
+
+                        <Box sx={{ flexGrow: 1 }} />
+
+                        <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
+                            <IconButtonAnimate>
+                                <Avatar sx={{ bgcolor: "#F76434" }}>
+                                    KN
+                                </Avatar>
+                            </IconButtonAnimate>
+                        </Stack>
                     </Grid>
                 </Grid>
             </Toolbar>

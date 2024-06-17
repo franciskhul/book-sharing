@@ -23,14 +23,9 @@ const navConfig = [
         subheader: 'Teacher',
         items: [
             {
-                title: 'Unassigned Books',
+                title: 'Books',
                 path: PATH_DASHBOARD.books,
-                icon: getIcon('ic_unassigned_books')
-            },
-            {
-                title: 'Assigned Books',
-                path: PATH_DASHBOARD.uassignedBooks,
-                icon: getIcon('ic_assigned_books')
+                icon: getIcon('books')
             }
         ]
     }

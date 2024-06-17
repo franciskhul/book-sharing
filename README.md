@@ -74,8 +74,23 @@ You can use this query to get the list of books to display in your frontend. You
 - You can use the following colors (You don't have to use all but you can pick and choose from here)
 <img width="961" alt="Screenshot 2024-05-14 at 17 36 40" src="https://github.com/ElloTechnology/fullstack-take-home-test/assets/3518127/15922f8f-a7c7-4033-8405-76988e95afb3">
 
+### Starting Frontend
 
+1. Navigate to the frontend folder
 
+2. Run the following to install the packages
+
+```bash
+npm install
+```
+
+3. Run the following to start the application
+
+```bash
+npm run dev
+```
+
+4. The application will run on port **5173**
 
 ### You will be evaluated on
 - Code quality and organization.
